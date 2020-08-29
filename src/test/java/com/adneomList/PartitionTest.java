@@ -4,12 +4,18 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.*;
 
 public class PartitionTest {
     private  ArrayList<Integer> list;
+    private List<Integer> list2;
 
     @Before
     public void init() {
@@ -23,6 +29,7 @@ public class PartitionTest {
                 add(5);
             }
         };
+        list2 = Arrays.asList(1, 2, 3, 4, 5);
     }
 
     @Test
@@ -44,4 +51,22 @@ public class PartitionTest {
         assertTrue(subLists.isEmpty());
 
     }
+
+    @Test
+    public void partitionEnStreamTest() {
+
+        List<List<Integer>> subLists = Partition.partitionEnStream(list2,2);
+
+        assertThat(subLists.size(), equalTo(3));
+
+
+        subLists = Partition.partitionEnStream(list2,1);
+
+        List<Integer> expectedPartition = Arrays.asList(1);
+        assertThat(subLists.get(0).get(0), equalTo(expectedPartition.get(0)));
+        assertThat(subLists.size(), equalTo(5));
+
+    }
+
+
 }

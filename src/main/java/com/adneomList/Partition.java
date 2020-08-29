@@ -1,7 +1,10 @@
 package com.adneomList;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Partition {
 
@@ -33,6 +36,20 @@ public class Partition {
         }
 
         return subList;
+    }
+
+
+    public static List<List<Integer>> partitionEnStream(List<Integer> list, int taille){
+
+
+        //List<Integer> intList = Arrays.asList(1, 2, 3, 4, 5);
+
+        Map<Integer,List<Integer>> lists = list.stream().collect(Collectors.groupingBy(s -> (s - 1) / taille));
+
+        List<List<Integer>> subLists = new ArrayList<List<Integer>>(lists.values());
+
+
+        return subLists;
     }
 
 }
